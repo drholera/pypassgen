@@ -19,11 +19,18 @@ def get_word():
     return line.split()[rand_num]
 
 # Build password
-def build_pass(pass_len):
+def build_pass(pass_len=5):
     '''
     Purpose: Build a string using a selected word and injecting
     numbers and special characters
     '''
     random_word = get_word()
-    rand_num = random.randint(90, 101)
-    
+    special_chars = ['!', '@', '#', '$', '%', '&', '*']
+    new_pass = ''
+    for letter in random_word:
+        rand_num = random.randint(0, 6)
+        new_pass += letter
+        new_pass += special_chars[rand_num]
+    print(new_pass)
+
+build_pass()
