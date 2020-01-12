@@ -9,7 +9,7 @@ def get_word():
     '''
     Purpose: Retrieve a random word from the words.txt file
     Modify: You can add/delete words as needed, must be on a single
-    line and seperated by single spaces. 
+    line and seperated by single spaces.
     '''
     # Store words in local variale
     words = open('words.txt', 'r')
@@ -28,7 +28,10 @@ def build_pass():
     # 1. Retrieve a random work from the words.txt file
     random_word = get_word()
     # 2. Setup special characters and numbers
-    special_chars = ['!', '@', '#', '$', '%', '&', '*', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    special_chars = [
+        '!', '@', '#', '$', '%', '&', '*', '0',
+        '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    ]
     # 3. Setup empty string as a placeholder for new password
     new_pass = ''
     # 4. Loop through every character in random_word
@@ -43,8 +46,9 @@ def build_pass():
         new_pass += special_chars[rand_num1-1]
 
         # 6. Capatalize a random letter
-        new_pass[rand_num2].upper()
-
+        new_pass = new_pass[:rand_num2] \
+            + new_pass[rand_num2].upper() \
+            + new_pass[rand_num2+1:]
     return new_pass
 
 def write_pass():
