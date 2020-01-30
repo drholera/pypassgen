@@ -1,61 +1,57 @@
 # Python Password Generator
-# Version 1.0
+# Version 1.1
 
-# Import packages
-import random
+# import random: needed to build out password and determin lenght if user does not specify one
+# import string: needed to create an array of all possible characters from which to build password from
+import random, string
+from datetime import datetime
 
-# Get a random word from words.txt
-def get_word():
-    '''
-    Purpose: Retrieve a random word from the words.txt file
-    Modify: You can add/delete words as needed, must be on a single
-    line and seperated by single spaces.
-    '''
-    # Store words in local variale
-    words = open('words.txt', 'r')
-    line = words.readline()
-    # Seperate words using spaces
-    rand_num = random.randint(0,len(line.split())-1)
-    # Return a randomly selected word
-    return line.split()[rand_num]
+# Get current date information
+today = datetime.now()
 
-# Build password
-def build_pass():
-    '''
-    Purpose: Build a string using a selected word and injecting
-    numbers and special characters
-    '''
-    # 1. Retrieve a random work from the words.txt file
-    random_word = get_word()
-    # 2. Setup special characters and numbers
-    special_chars = [
-        '!', '@', '#', '$', '%', '&', '*', '0',
-        '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    ]
-    # 3. Setup empty string as a placeholder for new password
-    new_pass = ''
-    # 4. Loop through every character in random_word
-    for letter in random_word:
-        pass_len = len(new_pass)
-        special_len = len(special_chars)
-        # Create random numbers
-        rand_num1 = random.randint(0, special_len)
-        rand_num2 = random.randint(0, pass_len)
-        # 5. Inject special characters or numbers into the new password
-        new_pass += letter
-        new_pass += special_chars[rand_num1-1]
+# Store all possible characters
+characters = string.printable
 
-        # 6. Capatalize a random letter
-        new_pass = new_pass[:rand_num2] \
-            + new_pass[rand_num2].upper() \
-            + new_pass[rand_num2+1:]
+def build_password(passlen):
+    '''
+    Build new password using randomly selected characters
+    '''
+    # Iniialize empty list
+    new_pass_list = []
+
+    # Format current date
+    curr_date = today.strftime("%d/%m/%Y %H:%M:%S")
+    
+    # Populate list with random characters
+    while len(new_pass_list) <= passlen:
+        rand_num = random.randint(0,99)
+        rand_char = characters[rand_num]
+        new_pass_list.append(rand_char)
+    
+    # Convert list to a single string
+    new_pass = ''.join([str(elm) for elm in new_pass_list])
+
+    # Save password into local text file, creates file is it doesn't already exist
+    with open('saved_passwords.txt', 'a') as log:
+        log.write(f'Password created on {curr_date} : {new_pass}\n')
+
+    # Return completed password
     return new_pass
 
-def write_pass():
-    '''
-    Purpose: Save the newly created password into a local txt file
-    '''
-    with open('saved_passwords.txt', 'a') as log:
-        log.write(f'Saved password: {build_pass()}\n')
 
-write_pass()
+# Prompt user for a password lenght, if none is given, randomly assign one from 10-15 characters in lenght
+try:
+    user_response = int(input('Enter a password lenght (Press Enter for random lenght): '))
+except ValueError:
+    print('Your new password was assigned a random lenght between 10-20 characters')
+    user_response = random.randint(10,20)
+    # Call function to build password
+    print("\nPassword succesfully generated!\n")
+    print(build_password(user_response))
+    
+
+
+else:
+    print("\nPassword succesfully generated!\n")
+    print(build_password(user_response))
+    
