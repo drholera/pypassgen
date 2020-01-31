@@ -16,20 +16,14 @@ def build_password(passlen):
     '''
     Build new password using randomly selected characters
     '''
-    # Iniialize empty list
-    new_pass_list = []
+    # Setup characters
+    pass_characters = string.ascii_letters + string.digits + string.punctuation
 
-    # Format current date
+    # Format Date
     curr_date = today.strftime("%d/%m/%Y %H:%M:%S")
-    
-    # Populate list with random characters
-    while len(new_pass_list) <= passlen:
-        rand_num = random.randint(0,99)
-        rand_char = characters[rand_num]
-        new_pass_list.append(rand_char)
-    
-    # Convert list to a single string
-    new_pass = ''.join([str(elm) for elm in new_pass_list])
+
+    # Build password
+    new_pass = ''.join(random.choice(pass_characters) for _ in range(passlen))
 
     # Save password into local text file, creates file is it doesn't already exist
     with open('saved_passwords.txt', 'a') as log:
