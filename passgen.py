@@ -20,7 +20,7 @@ def build_password(passlen):
     pass_characters = string.ascii_letters + string.digits + string.punctuation
 
     # Format Date
-    curr_date = today.strftime("%d/%m/%Y %H:%M:%S")
+    curr_date = today.strftime("%Y/%m/%d %H:%M:%S")
 
     # Build password
     new_pass = ''.join(random.choice(pass_characters) for _ in range(passlen))
