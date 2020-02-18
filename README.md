@@ -1,10 +1,9 @@
 <div align="center">
-    <img src="https://github.com/carlosrrod/pypassgen/blob/master/assets/github_pypassgen_logo.png?raw=true" />
+    <img height="250" src="assets/pypassgen-logo.svg" />
+    <h1>pyPassGen</h1>
+    <p>Python Password Generator Script</p>
 </div>
-<div align="center">
-  <h1>pyPassGen</h1>
-  <p>Python Password Generator Script</p>
-</div>
+
 
 ## Description:
 
