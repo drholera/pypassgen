@@ -1,51 +1,48 @@
 # Python Password Generator
-# Version 1.1
+# Version 1.2
 
-# import random: needed to build out password and determin lenght if user does not specify one
-# import string: needed to create an array of all possible characters from which to build password from
-import random, string
+import random, string, sys
 from datetime import datetime
+from PyQt5 import QtWidgets as qtw
+from PyQt5 import QtGui as qtg
+from PyQt5 import QtCore as qtc
 
-# Get current date information
-today = datetime.now()
+class Password:
+    """Build unique password"""
 
-# Store all possible characters
-characters = string.printable
+    today = datetime.now()
+    pass_chars = string.ascii_letters + string.digits + string.punctuation
+    current_date = today.strftime("%Y/%m/%d %H:%M:%S")
 
-def build_password(passlen):
-    '''
-    Build new password using randomly selected characters
-    '''
-    # Setup characters
-    pass_characters = string.ascii_letters + string.digits + string.punctuation
-
-    # Format Date
-    curr_date = today.strftime("%Y/%m/%d %H:%M:%S")
-
-    # Build password
-    new_pass = ''.join(random.choice(pass_characters) for _ in range(passlen))
-
-    # Save password into local text file, creates file is it doesn't already exist
-    with open('saved_passwords.txt', 'a') as log:
-        log.write(f'Password created on {curr_date} : {new_pass}\n')
-
-    # Return completed password
-    return new_pass
+    def __init__(self, pass_len):
+        self.pass_len = pass_len
+        self.new_pass = ''.join(random.choice(pass_chars) for _ in range(self.pass_len))
 
 
-# Prompt user for a password lenght, if none is given, randomly assign one from 10-15 characters in lenght
-try:
-    user_response = int(input('Enter a password lenght (Press Enter for random lenght): '))
-except ValueError:
-    print('Your new password was assigned a random lenght between 10-20 characters')
-    user_response = random.randint(10,20)
-    # Call function to build password
-    print("\nPassword succesfully generated!\n")
-    print(build_password(user_response))
-    
+class MainWindow(qtw.QWidget):
+    def __init__(self):
+        """MainWindow constructor"""
+
+        super().__init__()
+
+        # Setup window title and size
+        self.setWindowTitle("PyPassGen")
+        self.resize(400, 200)
+
+        main_layout = qtw.QGridLayout()
+        self.pass_title = qtw.QLineEdit()
+        self.pass_btn = qtw.QPushButton('Generate Password')
+        self.pass_label = qtw.QLabel('Enter password lenght')
+
+        self.setLayout(main_layout)
+        main_layout.addWidget(self.pass_label, 0,0)
+        main_layout.addWidget(self.pass_title, 1,0)
+        main_layout.addWidget(self.pass_btn, 1,1)
+
+        self.show()
 
 
-else:
-    print("\nPassword succesfully generated!\n")
-    print(build_password(user_response))
-    
+if __name__ == '__main__':
+    app = qtw.QApplication(sys.argv)
+    mw = MainWindow()
+    sys.exit(app.exec()) 
