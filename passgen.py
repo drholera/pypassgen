@@ -16,7 +16,7 @@ class Password:
 
     def __init__(self, pass_len):
         self.pass_len = pass_len
-        self.new_pass = ''.join(random.choice(pass_chars) for _ in range(self.pass_len))
+        self.new_pass = ''.join(random.choice(self.pass_chars) for _ in range(self.pass_len))
 
 
 class MainWindow(qtw.QWidget):
@@ -27,17 +27,22 @@ class MainWindow(qtw.QWidget):
 
         # Setup window title and size
         self.setWindowTitle("PyPassGen")
-        self.resize(400, 200)
+        # self.resize(400, 200) << REVISE
 
-        main_layout = qtw.QGridLayout()
-        self.pass_title = qtw.QLineEdit()
-        self.pass_btn = qtw.QPushButton('Generate Password')
-        self.pass_label = qtw.QLabel('Enter password lenght')
+        # Setup Layout
+        layout = qtw.QHBoxLayout()
+        self.setLayout(layout)
 
-        self.setLayout(main_layout)
-        main_layout.addWidget(self.pass_label, 0,0)
-        main_layout.addWidget(self.pass_title, 1,0)
-        main_layout.addWidget(self.pass_btn, 1,1)
+        # Create Widgets
+        pass_label = qtw.QLabel('Enter Password Lenght:', self)
+        pass_len = qtw.QLineEdit(self, clearButtonEnabled=True, maxLength=20)
+        pass_gen_btn = qtw.QPushButton('Generate', self)
+
+
+        # Add Widgets to Layout
+        layout.addWidget(pass_label)
+        layout.addWidget(pass_len)
+        layout.addWidget(pass_gen_btn)
 
         self.show()
 
