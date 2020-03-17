@@ -7,7 +7,7 @@
 
 ## Description:
 
-**pyPassGen** is a Python GUI application that generates a random password using combinations of lowercase, uppercase, special characters, and digits. The lenght of the password can be chosen manually by the user or have a random lenght between 10-20 characters in lenght. 
+**pyPassGen** is a Python GUI application that generates a random password using combinations of lowercase, uppercase, special characters, and digits. The lenght of the password can be chosen manually by the user or have a random lenght between 10-20 characters in lenght.
 
 
 
@@ -20,17 +20,17 @@ As technology continues to advance in our modernized world, keeping our personal
 ### Development:
 
 > Current Status: Developing Version 1.2
-> 
+>
 > To-Do List:
-> 
-> > - Build out GUI
-> > 
+>
+> > - Build out GUI ✅
+> >
 > > - Store generated passwords in database
-> > 
+> >
 > > - Improve security by implementing master password
-> 
+>
 > Future Plans:
-> 
+>
 > > - Build Web App using React or Vue and Django
 
 
