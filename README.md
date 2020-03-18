@@ -29,4 +29,4 @@ You can read more on PyQt5 [here](https://pypi.org/project/PyQt5/)
 
 To run the app simply navigate to the root project directory and type the following command into a CLI:
 
-`pip passgen.py` or `pip3 passgen.py`
+`pip gui.py` or `pip3 gui.py`
