@@ -7,15 +7,22 @@ from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtGui as qtg
 from PyQt5 import QtCore as qtc
 
-
 class MainWindow(qtw.QWidget):
 
     # Generate Button Clicked
     def generate_pass(self):
-        user_pass_len = int(self.pass_len.text())
-        user_new_password = ps.Password(user_pass_len)
-        self.pass_list.addItem(user_new_password.new_pass)
-        print("New password was generated")
+        try:
+            user_pass_len = int(self.pass_len.text())
+            if user_pass_len > 0:
+                user_new_password = ps.Password(user_pass_len)
+                self.pass_list.addItem(user_new_password.new_pass)
+            else:
+                return
+        except ValueError:
+            return
+    
+    def clear_list(self):
+        self.pass_list.clear()
 
     def __init__(self):
         """MainWindow constructor"""
@@ -57,6 +64,10 @@ class MainWindow(qtw.QWidget):
 
         # Handle Events
         self.pass_gen_btn.clicked.connect(self.generate_pass)
+        self.pass_clear_btn.clicked.connect(self.clear_list)
+
+        # Styling
+        self.setStyleSheet(open('styles.css').read())
 
         self.show()
 
