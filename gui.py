@@ -2,10 +2,12 @@
 # Version 1.2
 
 import password as ps
+from json_storage import JsonStorage
 import sys
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtGui as qtg
 from PyQt5 import QtCore as qtc
+
 
 class MainWindow(qtw.QWidget):
 
@@ -14,7 +16,7 @@ class MainWindow(qtw.QWidget):
         try:
             user_pass_len = int(self.pass_len.text())
             if user_pass_len > 0:
-                user_new_password = ps.Password(user_pass_len)
+                user_new_password = ps.Password(user_pass_len, JsonStorage())
                 self.pass_list.addItem(user_new_password.new_pass)
             else:
                 return
