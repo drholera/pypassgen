@@ -5,7 +5,7 @@ import os
 class JsonStorage(object):
     """ Json manipulations """
 
-    file = 'passwords.json'
+    file = 'password_data.json'
 
     def add_to_file(self, password, date):
         # Create file if not exists.
@@ -25,7 +25,8 @@ class JsonStorage(object):
         if file_content and file_content['generated_passwords']:
             data = file_content
 
-        data['generated_passwords'].append({
+        # Use insert() instead of append() to have the list properly sorted.
+        data['generated_passwords'].insert(0, {
             'password': password,
             'date': date,
         })
